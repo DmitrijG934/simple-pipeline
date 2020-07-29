@@ -13,7 +13,7 @@ pipeline {
 			steps {
 				sh "echo 'Preparing to Jenkins pipeline invokation.'"
 				sh 'docker version'
-				if (fileExists('images.txt') {
+				if (fileExists('images.txt')) {
 					sh 'rm images.txt'
 				}
 				sh 'docker image ls >> $HOME/images.txt'
