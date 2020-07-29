@@ -12,7 +12,6 @@ pipeline {
 	   	stage('Preparation') {
 			steps {
 				sh "echo 'Preparing to Jenkins pipeline invokation.'"
-				sh 'sudo usermod -aG docker ${USER}'
 				sh 'docker version'
 				sh 'docker image ls >> $HOME/images.txt'
 				sh 'docker pull 324124/vk-api-client:latest'
