@@ -1,0 +1,39 @@
+#!groovy
+properties([disableConcurrentBuilds()])
+
+pipeline {
+	agent {
+		label 'master'
+	}
+	options {
+		timestamps()
+	}
+	stages {
+	   	stage('Preparation') {
+			steps {
+				sh "echo 'Preparing to Jenkins pipeline invokation.'"
+				sh 'sudo docker version'
+				sh 'sudo docker images'
+				sh 'sudo docker pull 324124/vk-api-client:latest'
+				sh 'sudo docker run -d --name vk-service -p 8090:8090 324124/vk-api-client:latest'
+			}
+		}
+		stage ('Sleep 10 sec') {
+				def time = 10
+				echo "Waiting 10 seconds for deployment to complete prior starting smoke testing"
+				sleep time.toInteger()
+		}
+		stage ('Service logging') {
+			sh 'sudo docker logs vk-service'
+		}
+		stage ('Kill service') {
+			sh 'sudo docker stop vk-service'
+		}
+		stage ('Clean docker resources') {
+			sh 'sudo docker rm vk-service'
+			sh 'sudo docker rmi 324124/vk-api-client:latest'
+			echo 'Removed all docker artifacts. Script finished'
+		}				
+	}
+
+}
