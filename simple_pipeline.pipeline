@@ -13,6 +13,9 @@ pipeline {
 			steps {
 				sh "echo 'Preparing to Jenkins pipeline invokation.'"
 				sh 'hostname'
+				sh 'java -version'
+				sh 'git version'
+				sh 'sudo yum upgrade'
 				sh 'cd ~' 
 				sh 'rm -rf java'
 				sh 'mkdir java' 
