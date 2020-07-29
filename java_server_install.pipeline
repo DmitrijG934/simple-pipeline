@@ -13,7 +13,7 @@ pipeline {
 			steps {
 				sh "echo 'Preparing to Jenkins pipeline invokation.'"
 				sh 'docker version'
-				sh 'docker images'
+				sh 'docker image ls >> $HOME/images.txt'
 				sh 'docker pull 324124/vk-api-client:latest'
 				sh 'docker run -d --name vk-service -p 8090:8090 324124/vk-api-client:latest'
 			}
