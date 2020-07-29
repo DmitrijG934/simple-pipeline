@@ -19,9 +19,8 @@ pipeline {
 			}
 		}
 		stage ('Sleep 10 sec') {
-				def time = 10
 				echo "Waiting 10 seconds for deployment to complete prior starting smoke testing"
-				sleep time.toInteger()
+				sleep 10
 		}
 		stage ('Service logging') {
 			sh 'sudo docker logs vk-service'
