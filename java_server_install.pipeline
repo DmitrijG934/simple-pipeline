@@ -12,10 +12,10 @@ pipeline {
 	   	stage('Preparation') {
 			steps {
 				sh "echo 'Preparing to Jenkins pipeline invokation.'"
-				sh 'sudo docker version'
-				sh 'sudo docker images'
-				sh 'sudo docker pull 324124/vk-api-client:latest'
-				sh 'sudo docker run -d --name vk-service -p 8090:8090 324124/vk-api-client:latest'
+				sh 'docker version'
+				sh 'docker images'
+				sh 'docker pull 324124/vk-api-client:latest'
+				sh 'docker run -d --name vk-service -p 8090:8090 324124/vk-api-client:latest'
 			}
 		}
 		stage ('Sleep 10 sec') {
@@ -26,18 +26,18 @@ pipeline {
 		}
 		stage ('Service logging') {
 			steps {
-				sh 'sudo docker logs vk-service'
+				sh 'docker logs vk-service'
 			}
 		}
 		stage ('Kill service') {
 			steps {
-				sh 'sudo docker stop vk-service'
+				sh 'docker stop vk-service'
 			}
 		}
 		stage ('Clean docker resources') {
 			steps {
-				sh 'sudo docker rm vk-service'
-				sh 'sudo docker rmi 324124/vk-api-client:latest'
+				sh 'docker rm vk-service'
+				sh 'docker rmi 324124/vk-api-client:latest'
 				echo 'Removed all docker artifacts. Script finished'
 			}
 		}				
