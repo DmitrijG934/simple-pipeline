@@ -1,0 +1,29 @@
+#!groovy
+properties([disableConcurrentBuilds()])
+
+pipeline {
+	agent {
+		label: 'dgordeev-vm-2-slave'
+	}
+	options {
+		timestamps()
+	}
+	stages {
+	   	stage('Preparation') {
+			steps {
+				sh echo 'Preparing to Jenkins pipeline invokation.'
+				sh 'hostname'
+				sh cd ~ 
+				sh mkdir java 
+				sh cd java
+				sh echo 'public class Main { public static void main(String[] args) { System.out.println("Hello from java Pipeline!!!"); } }' > Main.java
+				sh javac Main.java
+				sh java Main
+				sh cd ../
+				sh rm -rf java
+				sh echo 'End of pipeline script!!!'
+			}
+		}
+	}
+
+}
