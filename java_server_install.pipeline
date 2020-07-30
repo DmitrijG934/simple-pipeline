@@ -13,15 +13,14 @@ pipeline {
 			steps {
 				sh "echo 'Preparing to Jenkins pipeline invokation.'"
 				sh 'docker version'
-				if (fileExists('images.txt')) {
-					sh 'rm images.txt'
-				} else {
+				sh 'rm images.txt'
+
 				    sh 'docker image ls >> $HOME/images.txt'
 					sh 'echo "==================IMAGES BEFORE TEST DEPLOY==================" >> images.txt'
 					sh 'docker pull 324124/vk-api-client:latest'
 					sh 'docker image ls >> $HOME/images.txt'
 					sh 'docker run -d --name vk-service -p 8090:8090 324124/vk-api-client:latest'
-				}
+				
 			}
 		}
 		stage ('Sleep 10 sec') {
