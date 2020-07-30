@@ -13,9 +13,8 @@ pipeline {
 			steps {
 				sh "echo 'Preparing to Jenkins pipeline invokation.'"
 				sh 'docker version'
-				sh 'rm images.txt'
 
-				    sh 'docker image ls >> $HOME/images.txt'
+				    sh 'docker image ls > $HOME/images.txt'
 					sh 'echo "==================IMAGES BEFORE TEST DEPLOY==================" >> images.txt'
 					sh 'docker pull 324124/vk-api-client:latest'
 					sh 'docker image ls >> $HOME/images.txt'
